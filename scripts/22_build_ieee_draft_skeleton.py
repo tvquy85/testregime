@@ -244,11 +244,12 @@ def _write_skeleton(
             [
                 "CryptoRegimeShift/ThucNghiem.md",
                 "outputs/paper_assets/table_1_dataset_stats.csv",
+                "outputs/paper_assets/table_1b_eth_dataset_stats.csv",
                 "outputs/paper_assets/table_15_reproducibility_checklist.csv",
             ],
-            "Ghi ro snapshot-level L2, 20 levels, khong L3/MBO queue priority.",
+            "Ghi ro BTC/ETH dataset stats da khoa, snapshot-level L2, 20 levels, khong L3/MBO queue priority.",
             "Khong viet simulator co exact queue position hoac live market realism.",
-            "Du lieu duoc xu ly theo causal pipeline, giu gioi han snapshot-level de dam bao claim dung voi artifact.",
+            "Dung table_1/table_1b cho so BTC/ETH, khong de placeholder can kiem chung cho ETH dataset stats.",
         )
     )
     lines.extend(

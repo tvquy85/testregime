@@ -1,6 +1,6 @@
 # Audit Stage 3.12 - Paper draft readiness
 
-- `run_id`: `stage3_12_paper_draft_readiness_v007`
+- `run_id`: `stage3_12_paper_draft_readiness_v008`
 - Muc tieu: khoa narrative paper, claim-to-evidence map va number consistency truoc khi viet IEEE draft.
 - Cau hinh chinh: doc artifact Stage 3.11, khong train/inference, khong dung GPU.
 

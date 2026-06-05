@@ -90,21 +90,16 @@ Nếu chỉ nhìn forecasting, ta tưởng model có edge. Nếu nhìn execution
 
 ## 1.5 Bộ dữ liệu thực nghiệm
 
-Phần thực nghiệm hiện tại dùng dữ liệu **BTC-USDT L2 order book snapshots trên Binance trong năm 2024**. Đây là dữ liệu dạng snapshot, tức mỗi dòng là một "ảnh chụp" trạng thái order book tại một thời điểm, không phải log event-level ghi từng lệnh thêm/hủy/khớp.
+Phần thực nghiệm hiện tại dùng dữ liệu **BTC-USDT và ETH-USDT L2 order book snapshots trên Binance trong năm 2024**. Đây là dữ liệu dạng snapshot, tức mỗi dòng là một "ảnh chụp" trạng thái order book tại một thời điểm, không phải log event-level ghi từng lệnh thêm/hủy/khớp.
 
-Quy mô Stage 3 full-year đang được dùng cho kết quả chính:
+Quy mô dataset Stage 3 full-year đã được khóa trong `outputs/paper_assets/table_1_dataset_stats.csv`:
 
-| Thuộc tính | Giá trị hiện tại |
-|---|---:|
-| Symbol chính | `BTC-USDT` |
-| Exchange | `BINANCE` |
-| Thời gian | `2024-01-01` đến `2024-12-31` |
-| Số ngày | `366` |
-| Số file raw monthly | `12` |
-| Số snapshot hợp lệ sau audit | `167,753,156` |
-| Median snapshot interval | khoảng `100 ms` |
-| Mean spread trong raw data | khoảng `0.028272` theo đơn vị giá |
-| Mean depth top-10 | khoảng `9.906425` theo đơn vị size raw |
+| Symbol | Exchange | Số ngày | Snapshot hợp lệ sau audit | Median interval | Mean spread | Mean depth top-10 |
+|---|---|---:|---:|---:|---:|---:|
+| `BTC-USDT` | `BINANCE` | `366` | `167,753,156` | `100.000256 ms` | `0.0282724554` | `9.9064246` |
+| `ETH-USDT` | `BINANCE` | `366` | `114,416,283` | `200.0 ms` | `0.0107778793` | `105.1572273` |
+
+Lưu ý về ETH: conversion raw parquet có `114,416,570` rows, còn stage audit dùng `114,416,283` snapshots nằm trong phạm vi `stage_3_full_scale`. Sau khi build feature/label, ETH còn `114,414,433` rows vì phải bỏ các điểm cuối không đủ future horizon.
 
 Mỗi snapshot có các nhóm cột chính:
 
@@ -116,7 +111,7 @@ Mỗi snapshot có các nhóm cột chính:
 
 Ví dụ dễ hiểu: một dòng snapshot cho biết tại thời điểm đó, bên mua tốt nhất đang đặt giá nào, size bao nhiêu; bên bán tốt nhất đang đặt giá nào, size bao nhiêu; và các mức sâu hơn trong order book đang dày hay mỏng. Từ chuỗi snapshot này, pipeline mới tính spread, depth, imbalance, volatility, liquidity stress và các feature causal khác.
 
-Dữ liệu sau khi build feature/label cho Stage 3 có `167,751,306` rows. Số này nhỏ hơn snapshot audit một chút vì phải bỏ các điểm cuối không đủ horizon để tạo future label. Split chronological hiện tại:
+Dữ liệu BTC sau khi build feature/label cho Stage 3 có `167,751,306` rows. Số này nhỏ hơn snapshot audit một chút vì phải bỏ các điểm cuối không đủ horizon để tạo future label. Split chronological BTC hiện tại:
 
 - Train: `100,650,783` rows.
 - Validation: `33,550,261` rows.

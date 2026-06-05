@@ -453,7 +453,7 @@ def _write_outline(
         "## De cuong paper",
         "",
         "1. Introduction: neu gap trong LOB/HFT evaluation va vi sao average forecasting/backtest khong du.",
-        "2. Data and benchmark: BTC-USDT L2 snapshot-level, 20 levels, causal features, chronological split.",
+        "2. Data and benchmark: BTC-USDT va ETH-USDT L2 snapshot-level, 20 levels, causal features, chronological split; dung table_1/table_1b cho so dataset da khoa.",
         "3. Regime taxonomy: refined causal taxonomy, residual states, UNKNOWN control, by-regime diagnostics.",
         "4. Forecasting baselines: SGD, XGBoost GPU, TCN stride-1; giai thich vai tro tung model.",
         "5. Forecast-to-execution: gross-to-net degradation, validation-only tuning, RSEP.",

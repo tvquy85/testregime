@@ -53,20 +53,14 @@ L2 order book snapshot
 
 ### 3.1 Nguồn và phạm vi dữ liệu
 
-Thực nghiệm chính hiện tại dùng:
+Thực nghiệm chính hiện tại dùng BTC-USDT và ETH-USDT full-year. Các số dataset chính đã được khóa trong `outputs/paper_assets/table_1_dataset_stats.csv`; ETH có thêm bảng riêng `outputs/paper_assets/table_1b_eth_dataset_stats.csv`.
 
-| Thuộc tính | Giá trị |
-|---|---:|
-| Symbol | `BTC-USDT` |
-| Exchange | `BINANCE` |
-| Loại dữ liệu | L2 order book snapshot |
-| Thời gian | `2024-01-01` đến `2024-12-31` |
-| Số ngày | `366` |
-| Số file raw monthly | `12` |
-| Số snapshot hợp lệ sau audit | `167,753,156` |
-| Median snapshot interval | khoảng `100 ms` |
-| Mean spread raw | khoảng `0.028272` |
-| Mean depth top-10 raw | khoảng `9.906425` |
+| Symbol | Exchange | Loại dữ liệu | Số ngày | Snapshot hợp lệ sau audit | Median interval | Mean spread raw | Mean depth top-10 raw |
+|---|---|---|---:|---:|---:|---:|---:|
+| `BTC-USDT` | `BINANCE` | L2 order book snapshot | `366` | `167,753,156` | `100.000256 ms` | `0.0282724554` | `9.9064246` |
+| `ETH-USDT` | `BINANCE` | L2 order book snapshot | `366` | `114,416,283` | `200.0 ms` | `0.0107778793` | `105.1572273` |
+
+Ghi chú ETH: converter tạo `114,416,570` rows raw parquet, stage audit khóa `114,416,283` snapshots trong phạm vi `stage_3_full_scale`, và feature/label còn `114,414,433` rows sau horizon/drop.
 
 Dữ liệu nằm trong:
 
@@ -81,6 +75,9 @@ BOOK_BINANCE_BTC-USDT_JAN-2024.parquet
 BOOK_BINANCE_BTC-USDT_FEB-2024.parquet
 ...
 BOOK_BINANCE_BTC-USDT_DEC-2024.parquet
+BOOK_BINANCE_ETH-USDT_JAN-2024.parquet
+...
+BOOK_BINANCE_ETH-USDT_DEC-2024.parquet
 ```
 
 ### 3.2 Schema ở mức dễ hiểu
@@ -155,6 +152,21 @@ Stage 3 là kết quả chính hiện tại của paper.
 | Test rows | `33,550,262` |
 
 Số feature/label/prediction rows nhỏ hơn số snapshot hợp lệ một chút vì các điểm cuối chuỗi không đủ future horizon để tạo label.
+
+### 4.3 Stage ETH full-year 2024
+
+| Thành phần | Giá trị |
+|---|---:|
+| Raw valid snapshots sau audit | `114,416,283` |
+| Feature/label/regime rows | `114,414,433` |
+| Số ngày | `366` |
+| Median snapshot interval | `200.0 ms` |
+| Mean spread raw | `0.0107778793` |
+| Mean depth top-10 raw | `105.1572273` |
+| UNKNOWN overall | `12.68%` |
+| p90 daily UNKNOWN | khoảng `15.59%` |
+
+ETH được dùng để kiểm tra replication và asset-held-out BTC<->ETH. Số ETH trong paper nên lấy từ `table_1_dataset_stats.csv` hoặc `table_1b_eth_dataset_stats.csv`, không để placeholder cần kiểm chứng.
 
 Nếu nhìn theo scale ML thông thường, đây là thí nghiệm rất lớn:
 

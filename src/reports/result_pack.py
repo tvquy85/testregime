@@ -2,17 +2,26 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from reports.make_tables import build_dataset_stats, copy_or_empty_csv
+from reports.make_tables import build_dataset_stats, copy_or_empty_csv, copy_symbol_rows
 from utils.artifacts import stage_table_path
 
 
 def assemble_result_pack(project_root: Path, *, stage: str | None = None) -> dict[str, Path]:
     paper = project_root / "outputs" / "paper_assets"
     tables = project_root / "outputs" / "tables"
+    dataset_stats = build_dataset_stats(
+        _dataset_audit_sources(project_root, tables),
+        tables / "table_dataset_stats_stage3_by_asset.csv",
+    )
     artifacts = {
-        "table_1_dataset_stats": build_dataset_stats(
-            project_root / "data" / "interim" / "audit" / "audit_by_day.parquet",
+        "table_1_dataset_stats": copy_or_empty_csv(
+            dataset_stats,
             paper / "table_1_dataset_stats.csv",
+        ),
+        "table_1b_eth_dataset_stats": copy_symbol_rows(
+            dataset_stats,
+            paper / "table_1b_eth_dataset_stats.csv",
+            "ETH-USDT",
         ),
         "table_2_regime_distribution": copy_or_empty_csv(
             tables / "table_regime_counts_by_symbol_month.csv",
@@ -82,3 +91,19 @@ def _prefer_first_existing(candidates: list[Path]) -> Path:
         if candidate.exists():
             return candidate
     return candidates[-1]
+
+
+def _dataset_audit_sources(project_root: Path, tables: Path) -> list[Path]:
+    btc_audit = _prefer_first_existing(
+        [
+            tables / "table_data_audit_stage_3_full_scale.csv",
+            project_root / "data" / "interim" / "audit" / "audit_by_day.parquet",
+        ]
+    )
+    eth_audit = _prefer_first_existing(
+        [
+            tables / "table_data_audit_stage3_eth_usdt.csv",
+            tables / "table_data_audit_eth_usdt_stage3.csv",
+        ]
+    )
+    return [path for path in [btc_audit, eth_audit] if path.exists()]

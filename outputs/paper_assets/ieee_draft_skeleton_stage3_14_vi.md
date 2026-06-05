@@ -50,10 +50,11 @@ File nay la skeleton de viet ban IEEE/ICDM tu artifact da khoa. No khong thay th
 - Evidence can trich:
   - `CryptoRegimeShift/ThucNghiem.md`
   - `outputs/paper_assets/table_1_dataset_stats.csv`
+  - `outputs/paper_assets/table_1b_eth_dataset_stats.csv`
   - `outputs/paper_assets/table_15_reproducibility_checklist.csv`
-- Wording duoc phep: Ghi ro snapshot-level L2, 20 levels, khong L3/MBO queue priority.
+- Wording duoc phep: Ghi ro BTC/ETH dataset stats da khoa, snapshot-level L2, 20 levels, khong L3/MBO queue priority.
 - Wording khong duoc dung: Khong viet simulator co exact queue position hoac live market realism.
-- Cau viet an toan: Du lieu duoc xu ly theo causal pipeline, giu gioi han snapshot-level de dam bao claim dung voi artifact.
+- Cau viet an toan: Dung table_1/table_1b cho so BTC/ETH, khong de placeholder can kiem chung cho ETH dataset stats.
 
 ## 4. Regime Taxonomy
 

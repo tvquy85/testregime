@@ -187,6 +187,8 @@ Lý do:
 
 - `outputs/paper_assets/table_1_dataset_stats.csv`
   - Dataset stats.
+- `outputs/paper_assets/table_1b_eth_dataset_stats.csv`
+  - ETH dataset stats riêng để tránh placeholder cần kiểm chứng khi viết Section 3.
 - `outputs/paper_assets/table_2_regime_distribution.csv`
   - Regime distribution.
 - `outputs/paper_assets/table_3_forecasting_by_regime.csv`

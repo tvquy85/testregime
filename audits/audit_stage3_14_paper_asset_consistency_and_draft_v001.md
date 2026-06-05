@@ -1,6 +1,6 @@
 # Audit Stage 3.14 - Paper asset consistency and IEEE draft skeleton
 
-- `run_id`: `stage3_14_paper_asset_consistency_and_draft_v001`
+- `run_id`: `stage3_14_paper_asset_consistency_and_draft_v004`
 - Muc tieu: sua stale narrative cross-asset, khoa evidence asset va tao skeleton IEEE reviewer-facing.
 - Cau hinh: chi doc artifact hien co, khong train/inference, khong dung GPU.
 
